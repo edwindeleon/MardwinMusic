@@ -3,15 +3,12 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView
+  View
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import ArtistBox from './ArtistBox'
+import ArtistList from './ArtistList'
 
 export default class MardwinMusic extends Component {
   render() {
@@ -21,12 +18,11 @@ export default class MardwinMusic extends Component {
       likes: 200,
       comments: 30
   }
+    const artists = Array(500).fill(artist)
     return (
-      <ScrollView style={styles.container}>
-        {Array(500).fill(artist).map( artist => {
-          return <ArtistBox artist={artist} />
-        })}
-      </ScrollView>
+      <View style={styles.container}>
+        <ArtistList artists={artists} />
+      </View>
     );
   }
 }
