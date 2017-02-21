@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
@@ -10,15 +9,11 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export default class MardwinMusic extends Component {
+export default class ArtistBox extends Component {
   render() {
-    const image = 'https://lastfm-img2.akamaized.net/i/u/300x300/31a51f6e3ec647c8997150ec837891c7.png'
-    const name = 'David Bowie'
-    const likes = 200
-    const comments = 25
+    const { image, name, likes, comments } = this.props.artist
 
     return (
-      <View style={styles.container}>
         <View style={styles.artistBox}>
           <Image style={styles.image} source={{ uri: image }} />
           <View style={styles.info}>
@@ -35,20 +30,22 @@ export default class MardwinMusic extends Component {
             </View>
           </View>
         </View>
-      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'lightgray',
-    paddingTop: 50,
-  },
   artistBox: {
+    margin: 5,
     backgroundColor: 'white',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    shadowColor: 'black',
+    shadowOpacity: .2,
+    shadowOffset: {
+      height: 1,
+      width: -2
+    },
+    elevation: 2
   },
   image: {
     width: 150,
@@ -79,4 +76,3 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('MardwinMusic', () => MardwinMusic);
