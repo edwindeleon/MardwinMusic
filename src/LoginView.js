@@ -15,7 +15,7 @@ import { Actions } from 'react-native-router-flux'
 
 import * as firebase from "firebase"; 
 
-var config = {
+const config = {
     apiKey: "AIzaSyCP3XmGEyRxGEkE4bcYmgPB3xFSXmjgdqU",
     authDomain: "mardwinmusic.firebaseapp.com",
     databaseURL: "https://mardwinmusic.firebaseio.com",

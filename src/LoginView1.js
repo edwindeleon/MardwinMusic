@@ -15,7 +15,7 @@ import { Actions } from 'react-native-router-flux'
 
 import * as firebase from "firebase"; 
 
-var config = {
+const config = {
     apiKey: "",
     authDomain: "",
     databaseURL: "",
