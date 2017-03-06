@@ -55,4 +55,4 @@ fastlane/screenshots
 
 notas.txt
 
-src/LoginView.js
+src/firebase.js
