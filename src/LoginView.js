@@ -17,8 +17,8 @@ import firebase, { firebaseAuth } from "./firebase";
 
 const { FacebookAuthProvider } = firebase.auth;
 
-export default class LoginView extends Component {
 
+export default class LoginView extends Component {
   state = {
     credential: null
   }
@@ -33,25 +33,21 @@ export default class LoginView extends Component {
       const credential = FacebookAuthProvider.credential(accessToken)
       firebaseAuth.signInWithCredential(credential).then((credentials) => {
         this.setState({ credentials })
+        Actions.root()
       }, (error) => {
         console.log("Sign in error", error)
       })
     })
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Bienvenidos a Mardwin Music</Text>
-        <Text style={styles.welcome}>
-          {this.state.credentials && this.state.credentials.displayName}
-        </Text>
-        <Button onPress={this.handleButtonPress} title='Seguir' />
+        <Text style={styles.welcome}>Bienvenidos a MardwinMusic</Text>
         <LoginButton
           readPermissions={['public_profile', 'email']}
           onLoginFinished={ this.handleLoginFinished }
-          onLogoutFinished={() => alert("logout.")}
-          />
+          onLogoutFinished={() => alert("logout.")}/>
       </View>
     );
   }
@@ -64,10 +60,6 @@ export default class LoginView extends Component {
     } else {
       this.authenticateUser()
     }
-  }
-
-  handleButtonPress = () => {
-    Actions.root()
   }
 }
 

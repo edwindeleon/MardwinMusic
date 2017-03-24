@@ -60,7 +60,6 @@ export default class ArtistDetailView extends Component {
     return (
       <View style={styles.container}>
         <ArtistBox artist={artist} />
-        <Text style={styles.header}>Comentarios</Text>
         <CommentList comments={comments} />
         <View style={styles.inputContainer}>
           <TextInput
@@ -83,11 +82,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'lightgray',
     paddingTop: 70,
-  },
-  header: {
-    fontSize: 20,
-    paddingHorizontal: 15,
-    marginVertical: 10
   },
   inputContainer: {
     height: 50,
