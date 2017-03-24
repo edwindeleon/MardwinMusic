@@ -40,7 +40,7 @@ export default class CommentList extends Component {
         enableEmptySections={true}
         dataSource={this.state.dataSource}
         renderRow={(comment) => {
-          return <Comment text={comment.text} />
+          return <Comment text={comment.text} avatar={comment.userPhoto} />
         }}
       />
     );
