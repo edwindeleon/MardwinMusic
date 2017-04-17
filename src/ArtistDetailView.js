@@ -17,11 +17,15 @@ export default class ArtistDetailView extends Component {
   state = {
     comments: []
   }
-
+  getArtistRef = () => {
+    const { id } = this.props.artist
+    return firebaseDatabase.ref(`comments/${id}`)
+  }
   handleSend = () => {
     const { text } = this.state
     const { uid, photoURL } = firebaseAuth.currentUser
     const artistCommentsRef = this.getArtistCommentsRef()
+
     var newCommentRef = artistCommentsRef.push()
     newCommentRef.set({
       text,
@@ -29,7 +33,24 @@ export default class ArtistDetailView extends Component {
       uid
     });
     this.setState({ text: '' })
+   // this.newComment()
   }
+
+  //newComment = () => {
+  //  this.getArtistRef().transaction(function (comments) {
+  //    if (comments) {
+  //      if (comments.commentCount) {
+  //        comments.commentCount++;
+  //      } else {
+  //        comments.commentCount = 1;
+  //      }
+  //      
+  //    }
+  //    return comments || {
+  //      commentCount: 1
+  //    }
+  //  })
+  //}
 
   getArtistCommentsRef = () => {
     const { id } = this.props.artist
@@ -40,6 +61,16 @@ export default class ArtistDetailView extends Component {
 
   componentDidMount() {
     this.getArtistCommentsRef().on('child_added', this.addComment)
+
+    this.getArtistCommentsRef().once('value', snapshot => {
+      let comments = {comments:[]}
+      snapshot.forEach( comment => {
+        comments.comments = comments.comments.concat(comment.val())
+      })
+      this.setState({
+        comments: comments.comments
+      })
+    })  
   }
 
   addComment = (data) => {

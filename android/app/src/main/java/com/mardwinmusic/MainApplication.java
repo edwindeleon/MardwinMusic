@@ -2,7 +2,7 @@ package com.mardwinmusic;
 
 import android.app.Application;
 import android.util.Log;
-
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.facebook.react.ReactApplication;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -42,6 +42,7 @@ public class MainApplication extends Application
             protected List<ReactPackage> getPackages() {
               return Arrays.<ReactPackage>asList(
                       new MainReactPackage(),
+                      new RCTSplashScreenPackage(),
                       new VectorIconsPackage(),
                       new FBSDKPackage(mCallbackManager)
               );

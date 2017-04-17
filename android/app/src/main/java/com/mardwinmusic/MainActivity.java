@@ -1,5 +1,6 @@
 package com.mardwinmusic;
 
+import com.reactnativecomponent.splashscreen.RCTSplashScreen;
 import com.facebook.react.ReactActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +26,12 @@ public class MainActivity extends ReactActivity {
         return "MardwinMusic";
     }
 
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        RCTSplashScreen.openSplashScreen(this);   //open splashscreen
+        //RCTSplashScreen.openSplashScreen(this, true, ImageView.ScaleType.FIT_XY);   //open splashscreen fullscreen
+        super.onCreate(savedInstanceState);
+    }
     protected List<ReactPackage> getPackages() {
         mCallbackManager = new CallbackManager.Factory().create();
         ReactPackage packages[] = new ReactPackage[]{

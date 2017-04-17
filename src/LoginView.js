@@ -3,8 +3,10 @@ import {
   StyleSheet,
   View,
   Text,
-  Button
+  Button,
+  Image
 } from 'react-native';
+import SplashScreen from 'react-native-smart-splash-screen'
 
 import FBSDK, {
   LoginButton,
@@ -19,6 +21,14 @@ const { FacebookAuthProvider } = firebase.auth;
 
 
 export default class LoginView extends Component {
+  componentDidMount () {
+     //SplashScreen.close(SplashScreen.animationType.scale, 850, 500)
+     SplashScreen.close({
+        animationType: SplashScreen.animationType.scale,
+        duration: 850,
+        delay: 500,
+     })
+  }
   state = {
     credential: null
   }
@@ -42,13 +52,14 @@ export default class LoginView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Bienvenidos a MardwinMusic</Text>
+      <Image source={require('./background.jpg')} style={styles.container}>
+        <Text style={styles.welcome}>Bienvenidos a Mardwin Music</Text>
+        <Image source={require('./logo.png')} style={styles.logo} />
         <LoginButton
           readPermissions={['public_profile', 'email']}
           onLoginFinished={ this.handleLoginFinished }
           onLogoutFinished={() => alert("logout.")}/>
-      </View>
+      </Image>
     );
   }
 
@@ -77,6 +88,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 20,
     backgroundColor: 'transparent',
-    color: 'black',
+    color: 'white',
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 15
   }
 });

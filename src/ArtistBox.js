@@ -14,7 +14,8 @@ import { firebaseAuth, firebaseDatabase } from './firebase'
 export default class ArtistBox extends Component {
   state = {
     liked: false,
-    likeCount: 0
+    likeCount: 0,
+    commentCount: 0,
   }
 
   handlePress = () => {
@@ -24,6 +25,11 @@ export default class ArtistBox extends Component {
   getArtistRef = () => {
     const { id } = this.props.artist
     return firebaseDatabase.ref(`artist/${id}`)
+  }
+
+  getArtistCommentsRef = () => {
+    const { id } = this.props.artist
+    return firebaseDatabase.ref(`comments/${id}`)
   }
 
   componentWillMount() {
@@ -38,8 +44,23 @@ export default class ArtistBox extends Component {
         })
       }
     })
+    this.countComments()
   }
-
+  
+  componentDidMount() {
+    this.getArtistCommentsRef().on('child_added', this.countComments)
+  }
+  countComments = () => {
+    let commentCount = 0;
+    this.getArtistCommentsRef().once('value', snapshot => {
+      snapshot.forEach( comment => {
+        commentCount = commentCount +1
+      })
+      this.setState({
+        commentCount : commentCount
+      })
+    })  
+  }
   toggleLike = () => {
     const { uid } = firebaseAuth.currentUser
     this.getArtistRef().transaction(function (artist) {
@@ -65,13 +86,12 @@ export default class ArtistBox extends Component {
   }
 
   render() {
-    const { image, name, comments } = this.props.artist
+    const {image, name, likes, comments} = this.props.artist
     const likeIcon = this.state.liked ?
       <Icon name="ios-heart" size={30} color="#e74c3c" /> :
       <Icon name="ios-heart-outline" size={30} color="gray" />
 
-    const { likeCount } = this.state
-
+    const { likeCount, commentCount } = this.state
     return (
       <View style={styles.artistBox}>
         <Image style={styles.image} source={{ uri: image }} />
@@ -86,7 +106,7 @@ export default class ArtistBox extends Component {
             </View>
             <View style={styles.iconContainer}>
               <Icon name="ios-chatboxes-outline" size={30} color="gray" />
-              <Text style={styles.count}>{comments}</Text>
+              <Text style={styles.count}>{commentCount}</Text>
             </View>
           </View>
         </View>
